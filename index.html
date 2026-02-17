@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adidas Adizero Adios Pro 4</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="theme-toggle">
+        <label for="theme-switch">Темная тема</label>
+        <input type="checkbox" id="theme-switch">
+    </div>
+
+    <div class="card card--accent">
+        <img src="shoes.jpg"
+            data-dark="shoes-dark.png"
+            alt="Adidas Adizero Adios Pro 4 ярко-зеленые" class="card-image">
+        <h2 class="card-title">Adidas Adizero Adios Pro 4</h2>
+        <p class="card-description">Супер-кроссовки для бега на длинные дистанции. Светящийся желтый цвет с черными
+            вставками. Идеальны для марафонов и соревнований. Вес ~200г, дроп 6мм, стек 39/33мм. Технологии:
+            LIGHTSTRIKE PRO, ENERGYRODS 2.0, Continental rubber.</p>
+        <div class="card-price">$250</div>
+        <a href="#" class="btn">Купить</a>
+    </div>
+
+    <script>
+        const themeSwitch = document.getElementById('theme-switch');
+        const img = document.querySelector('.card-image');
+
+        themeSwitch.addEventListener('change', () => {
+            document.body.classList.toggle('theme-dark');
+
+            if (document.body.classList.contains('theme-dark')) {
+                img.src = img.dataset.dark;
+            } else {
+                img.src = "shoes.jpg";
+            }
+        });
+    </script>
+
+</body>
+
+</html>
