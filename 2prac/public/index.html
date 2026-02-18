@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Practice 2 — Products</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f6f6f6;
+            color: #111;
+        }
+
+        body.theme-dark {
+            background: #0f0f10;
+            color: #f2f2f2;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+        }
+
+        .toggle {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            user-select: none;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            padding: 0 20px 24px;
+        }
+
+        .card {
+            border-radius: 14px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 6px 22px rgba(0, 0, 0, .08);
+            display: flex;
+            flex-direction: column;
+        }
+
+        body.theme-dark .card {
+            background: #151517;
+            box-shadow: 0 6px 22px rgba(0, 0, 0, .35);
+        }
+
+        .imgwrap {
+            background: #e9e9e9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 180px;
+        }
+
+        body.theme-dark .imgwrap {
+            background: #000;
+        }
+
+        .card img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .content {
+            padding: 14px 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .title {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .desc {
+            font-size: 13px;
+            line-height: 1.35;
+            margin: 0;
+            opacity: .85;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-top: 6px;
+        }
+
+        .price {
+            font-weight: 800;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 12px;
+            border-radius: 10px;
+            text-decoration: none;
+            border: 1px solid rgba(0, 0, 0, .15);
+            color: inherit;
+            text-align: center;
+        }
+
+        body.theme-dark .btn {
+            border-color: rgba(255, 255, 255, .18);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="topbar">
+        <h1 style="font-size:18px; margin:0;">Practice 2 — Products</h1>
+
+        <label class="toggle">
+            <span>Тёмная тема</span>
+            <input type="checkbox" id="theme-switch" />
+        </label>
+    </div>
+
+    <div class="grid" id="products"></div>
+
+    <script>
+        const themeSwitch = document.getElementById('theme-switch');
+        const productsEl = document.getElementById('products');
+
+        function setTheme(isDark) {
+            document.body.classList.toggle('theme-dark', isDark);
+
+            document.querySelectorAll('img[data-light]').forEach(img => {
+                img.src = isDark ? img.dataset.dark : img.dataset.light;
+            });
+        }
+
+
+        themeSwitch.addEventListener('change', () => setTheme(themeSwitch.checked));
+
+        async function loadProducts() {
+            const res = await fetch('/products');
+            const products = await res.json();
+
+            productsEl.innerHTML = products.map(p => `
+        <div class="card">
+          <div class="imgwrap">
+            <img
+              src="${p.imageLight || ''}"
+              data-light="${p.imageLight || ''}"
+              data-dark="${p.imageDark || p.imageLight || ''}"
+              alt="${p.name}"
+            />
+          </div>
+          <div class="content">
+            <p class="title">${p.name}</p>
+            <p class="desc">${p.description || ''}</p>
+            <div class="row">
+              <div class="price">$${p.price}</div>
+              ${p.link ? `<a class="btn" href="${p.link}" target="_blank" rel="noopener noreferrer">Открыть</a>` : `<span></span>`}
+            </div>
+          </div>
+        </div>
+      `).join('');
+        }
+
+        loadProducts();
+    </script>
+</body>
+
+</html>
