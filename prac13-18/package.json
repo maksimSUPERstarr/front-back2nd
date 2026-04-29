@@ -1,0 +1,27 @@
+{
+    "name": "notes-pwa-control-work",
+    "version": "1.0.0",
+    "description": "PWA-приложение заметок с офлайн-режимом, WebSocket и push-уведомлениями",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "dev": "node server.js",
+        "vapid": "node -e \"const webpush=require('web-push'); console.log(webpush.generateVAPIDKeys())\""
+    },
+    "keywords": [
+        "pwa",
+        "service-worker",
+        "web-push",
+        "socket-io",
+        "express",
+        "notes"
+    ],
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "dotenv": "^16.4.5",
+        "express": "^4.19.2",
+        "socket.io": "^4.8.1",
+        "web-push": "^3.6.7"
+    }
+}

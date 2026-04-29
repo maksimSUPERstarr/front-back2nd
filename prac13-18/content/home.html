@@ -1,0 +1,41 @@
+<section>
+    <h2>Мои заметки</h2>
+    <p>Добавляй обычные заметки и заметки с напоминанием. Все данные сохраняются локально.</p>
+
+    <div class="row">
+        <div class="col">
+            <article>
+                <h3>Обычная заметка</h3>
+                <form id="note-form">
+                    <label for="note-input">Текст заметки</label>
+                    <input id="note-input" name="note" type="text" placeholder="Например: Купить молоко" required />
+                    <button class="button primary" type="submit">Добавить заметку</button>
+                </form>
+            </article>
+        </div>
+
+        <div class="col">
+            <article>
+                <h3>Заметка с напоминанием</h3>
+                <form id="reminder-form">
+                    <label for="reminder-input">Текст заметки</label>
+                    <input id="reminder-input" name="reminderText" type="text" placeholder="Например: Позвонить клиенту"
+                        required />
+
+                    <label for="reminder-datetime">Дата и время напоминания</label>
+                    <input id="reminder-datetime" name="reminderDateTime" type="datetime-local" required />
+
+                    <button class="button dark" type="submit">Сохранить с напоминанием</button>
+                </form>
+            </article>
+        </div>
+    </div>
+
+    <hr />
+
+    <section>
+        <h3>Список заметок</h3>
+        <p id="notes-empty-state">Пока заметок нет.</p>
+        <div id="notes-list"></div>
+    </section>
+</section>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Менеджер заметок</title>
+    <meta name="description" content="PWA-приложение заметок с офлайн-режимом, WebSocket и push-уведомлениями" />
+    <meta name="theme-color" content="#2f6fed" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32.png" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+
+    <link rel="stylesheet" href="/styles/chota.min.css" />
+
+    <style>
+        body {
+            padding: 24px 0;
+        }
+
+        .app-shell {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        .app-header {
+            margin-bottom: 24px;
+        }
+
+        .app-header h1 {
+            margin-bottom: 8px;
+        }
+
+        .app-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 16px 0 20px;
+        }
+
+        .app-main {
+            min-height: 420px;
+            padding: 20px;
+            border: 1px solid #dcdcdc;
+            border-radius: 12px;
+            background: #fff;
+        }
+
+        .status-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            margin: 16px 0 20px;
+            font-size: 0.95rem;
+        }
+
+        .status-chip {
+            padding: 6px 10px;
+            border: 1px solid #dcdcdc;
+            border-radius: 999px;
+            background: #f8f8f8;
+        }
+
+        .toast {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            min-width: 260px;
+            max-width: 360px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            background: #222;
+            color: #fff;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(10px);
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            z-index: 9999;
+        }
+
+        .toast.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .footer-note {
+            margin-top: 18px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-shell">
+        <header class="app-header">
+            <h1>Менеджер заметок</h1>
+            <p>Офлайн-PWA приложение с напоминаниями, WebSocket и push-уведомлениями.</p>
+
+            <nav class="app-nav">
+                <button id="nav-home" class="button primary" type="button">Главная</button>
+                <button id="nav-about" class="button outline" type="button">О приложении</button>
+                <button id="enable-notifications" class="button dark" type="button">
+                    Включить уведомления
+                </button>
+                <button id="disable-notifications" class="button error" type="button">
+                    Отключить уведомления
+                </button>
+            </nav>
+
+            <div class="status-bar">
+                <span id="connection-status" class="status-chip">Сеть: проверка...</span>
+                <span id="sw-status" class="status-chip">Service Worker: не зарегистрирован</span>
+                <span id="push-status" class="status-chip">Push: не активирован</span>
+            </div>
+        </header>
+
+        <main id="app-content" class="app-main">
+            <p>Загрузка интерфейса...</p>
+        </main>
+
+        <p class="footer-note">
+            Контрольная работа: практики 13–18. Реализованы offline, App Shell, HTTPS, WebSocket и Push API.
+        </p>
+    </div>
+
+    <div id="toast" class="toast" aria-live="polite"></div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/app.js"></script>
+</body>
+
+</html>
