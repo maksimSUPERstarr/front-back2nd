@@ -1,0 +1,19 @@
+{
+  "name": "practice27-rabbitmq",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "docker:up": "docker compose up -d",
+    "setup": "node src/setup.js",
+    "api": "node src/server.js",
+    "worker": "node src/worker.js",
+    "worker:1": "node src/worker.js --id=1",
+    "worker:2": "node src/worker.js --id=2",
+    "demo": "node src/demo-client.js"
+  },
+  "dependencies": {
+    "amqplib": "^0.10.7",
+    "express": "^5.2.1"
+  }
+}

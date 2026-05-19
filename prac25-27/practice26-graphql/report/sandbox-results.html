@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apollo Sandbox checks</title>
+    <style>
+      :root {
+        color: #1a2533;
+        background: #f6f7f9;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+      }
+
+      body {
+        margin: 0;
+        padding: 28px;
+      }
+
+      h1 {
+        font-size: 28px;
+        margin: 0 0 18px;
+      }
+
+      .grid {
+        display: grid;
+        gap: 16px;
+      }
+
+      .check {
+        background: #ffffff;
+        border: 1px solid #d8dde5;
+        border-radius: 8px;
+        display: grid;
+        gap: 12px;
+        grid-template-columns: 1fr 1fr;
+        padding: 18px;
+      }
+
+      h2 {
+        font-size: 18px;
+        margin: 0;
+      }
+
+      pre {
+        background: #101827;
+        border-radius: 8px;
+        color: #dbeafe;
+        font-size: 13px;
+        line-height: 1.45;
+        margin: 0;
+        overflow: auto;
+        padding: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Apollo Sandbox: три проверочных запроса</h1>
+    <div class="grid">
+      <section class="check">
+        <div>
+          <h2>Query: Books</h2>
+          <pre>query GetBooks {
+  books {
+    id
+    title
+    author { name }
+  }
+}</pre>
+        </div>
+        <pre>{
+  "data": {
+    "books": [
+      { "id": "b1", "title": "Мастер и Маргарита", "author": { "name": "Михаил Булгаков" } },
+      { "id": "b2", "title": "1984", "author": { "name": "Джордж Оруэлл" } },
+      { "id": "b3", "title": "451 градус по Фаренгейту", "author": { "name": "Рэй Брэдбери" } }
+    ]
+  }
+}</pre>
+      </section>
+
+      <section class="check">
+        <div>
+          <h2>Query: Authors</h2>
+          <pre>query GetAuthors {
+  authors {
+    id
+    name
+    books { title }
+  }
+}</pre>
+        </div>
+        <pre>{
+  "data": {
+    "authors": [
+      { "id": "a1", "name": "Михаил Булгаков", "books": [{ "title": "Мастер и Маргарита" }] },
+      { "id": "a2", "name": "Джордж Оруэлл", "books": [{ "title": "1984" }] },
+      { "id": "a3", "name": "Рэй Брэдбери", "books": [{ "title": "451 градус по Фаренгейту" }] }
+    ]
+  }
+}</pre>
+      </section>
+
+      <section class="check">
+        <div>
+          <h2>Mutation: AddBook</h2>
+          <pre>mutation AddBook {
+  createBook(input: {
+    title: "Собачье сердце"
+    year: 1925
+    genre: "повесть"
+    authorId: "a1"
+  }) {
+    id
+    title
+    author { name }
+  }
+}</pre>
+        </div>
+        <pre>{
+  "data": {
+    "createBook": {
+      "id": "b4",
+      "title": "Собачье сердце",
+      "author": { "name": "Михаил Булгаков" }
+    }
+  }
+}</pre>
+      </section>
+    </div>
+  </body>
+</html>

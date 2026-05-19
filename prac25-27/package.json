@@ -1,0 +1,21 @@
+{
+  "name": "prac25-27",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "practice25-vite",
+    "practice26-graphql",
+    "practice27-rabbitmq"
+  ],
+  "scripts": {
+    "build:25": "npm --workspace practice25-vite run build",
+    "dev:25": "npm --workspace practice25-vite run dev",
+    "preview:25": "npm --workspace practice25-vite run preview",
+    "start:26": "npm --workspace practice26-graphql run start",
+    "test:26": "npm --workspace practice26-graphql run test",
+    "docker:27": "npm --workspace practice27-rabbitmq run docker:up",
+    "api:27": "npm --workspace practice27-rabbitmq run api",
+    "worker1:27": "npm --workspace practice27-rabbitmq run worker:1",
+    "worker2:27": "npm --workspace practice27-rabbitmq run worker:2"
+  }
+}

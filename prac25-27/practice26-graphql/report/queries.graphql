@@ -1,0 +1,41 @@
+query GetBooks {
+  books {
+    id
+    title
+    year
+    genre
+    author {
+      id
+      name
+      country
+    }
+  }
+}
+
+query GetAuthors {
+  authors {
+    id
+    name
+    books {
+      id
+      title
+    }
+  }
+}
+
+mutation AddBook {
+  createBook(
+    input: {
+      title: "Собачье сердце"
+      year: 1925
+      genre: "повесть"
+      authorId: "a1"
+    }
+  ) {
+    id
+    title
+    author {
+      name
+    }
+  }
+}
